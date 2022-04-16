@@ -24,15 +24,16 @@ export class App extends Component  {
       localStorage.setItem("contacts", JSON.stringify(contacts));
     } 
     if (prevState.contacts.length === 1) {
-      this.setState({contacts: this.numbersStarterPack});
-      alert('Внимание: при удалении последнего контакта будет запущен протокол "СТАРТОВЫЙ ТЕСТ-НАБОР"')
+      localStorage.removeItem("contacts");
+      alert('Внимание: для запуска протокола "СТАРТОВЫЙ ТЕСТ-НАБОР", перезагрузите страницу.')
     }
   }
 
   componentDidMount() {
     let savedContacts = JSON.parse(localStorage.getItem("contacts"));
-
+    console.log(savedContacts)
     if (!savedContacts) {
+      console.log('Савед контактс фолс')
       savedContacts = this.numbersStarterPack;
     } 
     this.setState({contacts: savedContacts});
@@ -73,6 +74,7 @@ export class App extends Component  {
     return (
       <>
         <h1>Phonebook</h1>
+        
         <ContactsForm onAddNewContact={this.onAddNewContact}/>
         
         <h1>Contacts</h1>
